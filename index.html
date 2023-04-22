@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Art plastiques</title>
+		<style>
+			img {
+				position: absolute;
+				max-width: 100vw;
+				max-height: 100vh;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				display: flex;
+				transition: all 300ms;
+			}
+			.imgDiv {
+				display: flex;
+				justify-content: center;
+			}
+			*:not(img) {
+				margin: 0;
+			}
+		</style>
+		<script>
+			function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms));
+			}
+			function randInt(min, max) { // min and max included 
+				return Math.floor(Math.random() * (max - min + 1) + min)
+			}
+			function tr(t, d, n)
+			{
+				sleep(t)
+					.then(()=>{document.querySelector(`.g${n}`).style.opacity = "0.1";});
+				sleep(100+t)
+					.then(()=>{document.querySelector(`.g${n}`).style.opacity = "0.6";})
+				sleep(100+t+d)
+					.then(()=>{document.querySelector(`.g${n}`).style.opacity = "0.1";})
+				sleep(100+t+2*d)
+					.then(()=>{document.querySelector(`.g${n}`).style.opacity = "1";})
+					.then(()=>{requestAnimationFrame(forever);});
+			}
+
+			function forever()
+			{
+				var t = randInt(1000, 3000);
+				var d = randInt(20, 500);
+				var n = randInt(1, 5);
+				tr(t, d, n);
+			}
+			function forever2()
+			{
+				var t = randInt(1000, 3000);
+				var d = randInt(20, 500);
+				var n = randInt(1, 5);
+				tr(t, d, n);
+			}
+			function ready(fn) {
+				if (document.readyState !== 'loading')
+				{
+					fn();
+					return;
+				}
+				document.addEventListener('DOMContentLoaded', fn);
+			}
+			ready(forever);
+			ready(forever2);
+		</script>
+	</head>
+	<body>
+		<div class="imgDiv">
+			<img src="./fake.png">
+			<img src="./avant.png" class="g1">
+			<img src="./faux arbre.png">
+			<img src="./faux champ.png">
+			<img src="./faux oiseau.png">
+			<img src="./tronc.png" class="g2">
+			<img src="./feuilles.png" class="g3">
+			<img src="./oiseau.png" class="g4">
+			<img src="./champ.png" class="g5">
+		</div>
+	</body>
+</html>
